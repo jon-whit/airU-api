@@ -37,3 +37,15 @@ class GroupViewTests(APITestCase):
         self.assertEqual(Group.objects.get().name, 'new-group')
 
         self.client.logout()
+
+    def test_list_groups_anony_user(self):
+        response = self.client.get('/groups/')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_list_groups_admin_user(self):
+        self.client.login(username=self.superuser_name, password=self.superuser_pass)
+
+        response = self.client.get('/groups/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.client.logout()
