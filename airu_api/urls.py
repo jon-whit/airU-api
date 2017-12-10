@@ -21,6 +21,7 @@ from airu_api import views
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
+router.register(r'devices', views.DeviceViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
